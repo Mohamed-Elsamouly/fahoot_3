@@ -155,38 +155,21 @@ let score_4 = player.GetVar("player4_score");
 let rectangles = [red, yellow, blue, green];
 let scores = [score_1, score_2, score_3, score_4];
 
-// Function to update rectangle positions based on their height and scores
-function updateRectanglePositions() {
-    rectangles.forEach((rect, index) => {
-        // Get the updated height of the rectangle using getBoundingClientRect
-        let rectHeight = rect.getBoundingClientRect().height;
+// Animate each rectangle
+rectangles.forEach((rect, index) => {
+    // Get the height of the rectangle using getBoundingClientRect
+    let rectHeight = rect.getBoundingClientRect().height;
 
-        // Calculate the move distance (percentage of the height based on score)
-        let moveDistance = (scores[index] / 100) * rectHeight;
+    // Calculate the move distance (percentage of the height based on score)
+    let moveDistance = (scores[index] / 100) * rectHeight;
 
-        // Animate using GSAP
-        gsap.to(rect, {
-            duration: 1, // Animation duration in seconds
-            y: `-=${moveDistance}`, // Move up by the calculated distance from its current position
-            ease: "power2.out" // Easing function
-        });
+    // Animate using GSAP
+    gsap.to(rect, {
+        duration: 1, // Animation duration in seconds
+        y: `-=${moveDistance}`, // Move up by the calculated distance from its current position
+        ease: "power2.out" // Easing function
     });
-}
-
-// Initial call to set up the positions
-updateRectanglePositions();
-
-// Debounce function to limit the rate at which the resize handler is called
-function debounce(func, wait) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-}
-
-// Add a resize event listener with debouncing
-window.addEventListener('resize', debounce(updateRectanglePositions, 100));
+});
 }
 
 };
