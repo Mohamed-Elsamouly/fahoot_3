@@ -187,3 +187,4 @@ function debounce(func, wait) {
 
 // Add a resize event listener with debouncing
 window.addEventListener('resize', debounce(updateRectanglePositions, 100));
+}
